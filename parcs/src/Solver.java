@@ -14,7 +14,7 @@ public class Solver implements AM
         task mainTask = new task();
 
         mainTask.addJarFile("Solver.jar");
-        mainTask.addJarFile("Count.jar");
+        mainTask.addJarFile("Inference.jar");
 
         System.out.print("class Solver method main adder jars\n");
 
