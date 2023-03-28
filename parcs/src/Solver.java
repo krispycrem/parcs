@@ -28,15 +28,15 @@ public class Solver implements AM
 
     public void run(AMInfo info)
     {
-        long n, a, b;
+        long n_workers, left, right;
 
         try
         {
             BufferedReader in = new BufferedReader(new FileReader(info.curtask.findFile("input.txt")));
 
-            n = Long.valueOf(in.readLine());
-            a = Long.valueOf(in.readLine());
-            b = Long.valueOf(in.readLine());
+            n_workers = Long.valueOf(in.readLine());
+            left = Long.valueOf(in.readLine());
+            right = Long.valueOf(in.readLine());
         }
         catch (IOException e)
         {
@@ -51,7 +51,7 @@ public class Solver implements AM
 
         long tStart = System.nanoTime();
 
-        long res = solve(info, n, a, b);
+        long res = solve(info, n_workers, left, right);
 
         long tEnd = System.nanoTime();
 
@@ -60,16 +60,16 @@ public class Solver implements AM
         System.out.println("time = " + ((tEnd - tStart) / 1000000) + "ms");
     }
 
-    static public long solve(AMInfo info, long n, long a, long b) {
+    static public long solve(AMInfo info, long n_workers, long left, long right) {
         List<point> points = new ArrayList<>();
         List<channel> channels = new ArrayList<>();
 
-        long remainder = (b - a) % n;
-        long length = (b - a) / n;
+        long remainder = (right - left) % n_workers;
+        long length = (right - left) / n_workers;
 
-        for (int index = 0; index < n; ++index) {
+        for (int index = 0; index < n_workers; ++index) {
             long currentStart = index * length;
-            long currentEnd = (index + 1) * length + ((n - index - 1 < remainder) ? 1 : 0);
+            long currentEnd = (index + 1) * length + ((n_workers - index - 1 < remainder) ? 1 : 0);
 
             System.out.println(index + " worker range: " + currentStart + " - " + currentEnd);
 
@@ -86,7 +86,7 @@ public class Solver implements AM
         }
 
         long result = 0;
-        for (int index = 0; index < n; ++index) {
+        for (int index = 0; index < n_workers; ++index) {
             long threadResult = channels.get(index).readLong();
             System.out.println("Worker result: " + threadResult);
             result += threadResult;

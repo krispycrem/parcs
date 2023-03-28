@@ -2,13 +2,12 @@ import parcs.*;
 
 public class Count implements AM {
     public void run(AMInfo info) {
-        long a, b;
+        long left, right;
 
-        a = info.parent.readLong();
-        b = info.parent.readLong();
+        left = info.parent.readLong();
+        right = info.parent.readLong();
         long k = 0;
-        //System.out.println("Worker started");
-        for (long n = a; n < b + 1; n++) {
+        for (long n = left; n < right + 1; n++) {
             for (long i = 1; i < n / 4 + 1; i++) {
                 if (i * i * i * i == n) {
                     k++;
