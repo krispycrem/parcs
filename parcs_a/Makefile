@@ -10,7 +10,7 @@ out/Solver.jar: out/parcs.jar src/Solver.java
 
 out/Count.jar: out/parcs.jar src/Count.java
 	@javac -cp out/parcs.jar src/Count.java
-	@jar cf out/Inference.jar -C src Count.class
+	@jar cf out/Count.jar -C src Count.class
 	@rm -f src/Count.class
 
 build: out/Solver.jar out/Count.jar
